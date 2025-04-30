@@ -1,0 +1,103 @@
+// This file was decompiled using SASCM.ini published on 2022-03-20
+{$CLEO .csi}
+
+0000: NOP 
+if 
+  Actor.Driving($PLAYER_ACTOR)
+jf @Noname_601 
+0@ = Actor.CurrentCar($PLAYER_ACTOR)
+Car.StorePos(0@, 1@, 2@, 3@)
+3@ -= 0.875 
+4@ = Car.Angle(0@)
+
+:Noname_58
+wait 0 
+Car.LockInCurrentPosition(0@, True)
+Player.CanMove($PLAYER_CHAR, False)
+Car.PutAt(0@, 1@, 2@, 3@)
+Car.Angle(0@) = 4@
+get_touch_point_state 5@ = get_touch_point_state 5 mintime 0 
+if 
+  5@ == 1 
+jf @Noname_220 
+02F7: 7@ = cosine 4@ // (float) 
+02F6: 8@ = sine 4@ // (float) 
+0063: 1@ -= 8@ // (float) 
+005B: 2@ += 7@ // (float) 
+get_touch_point_state 5@ = get_touch_point_state 9 mintime 0 
+if 
+  5@ == 1 
+jf @Noname_220 
+7@ *= 5.0 
+8@ *= -5.0 
+005B: 1@ += 8@ // (float) 
+005B: 2@ += 7@ // (float) 
+
+:Noname_220
+get_touch_point_state 5@ = get_touch_point_state 4 mintime 0 
+if 
+  5@ == 1 
+jf @Noname_257 
+3@ += 2.5 
+
+:Noname_257
+get_touch_point_state 5@ = get_touch_point_state 6 mintime 0 
+if 
+  5@ == 1 
+jf @Noname_339 
+3@ -= 2.5 
+if 
+  -102.5 > 3@ 
+jf @Noname_339 
+Car.StorePos(0@, 1@, 2@, 3@)
+3@ -= 0.875 
+
+:Noname_339
+get_touch_point_state 5@ = get_touch_point_state 2 mintime 0 
+if 
+  5@ == 1 
+jf @Noname_376 
+4@ += 2.5 
+
+:Noname_376
+get_touch_point_state 5@ = get_touch_point_state 8 mintime 0 
+if 
+  5@ == 1 
+jf @Noname_413 
+4@ -= 2.5 
+
+:Noname_413
+if or
+  Player.Wasted($PLAYER_CHAR)
+  not Actor.InCar($PLAYER_ACTOR, 0@)
+jf @Noname_444 
+jump @Noname_487 
+
+:Noname_444
+get_touch_point_state 5@ = get_touch_point_state 3 mintime 0 
+get_touch_point_state 6@ = get_touch_point_state 7 mintime 0 
+if and
+  5@ == 1 
+  6@ == 1 
+jf @Noname_508 
+
+:Noname_487
+Player.CanMove($PLAYER_CHAR, True)
+Car.LockInCurrentPosition(0@, False)
+jump @Noname_601 
+
+:Noname_508
+get_touch_point_state 5@ = get_touch_point_state 9 mintime 0 
+get_touch_point_state 6@ = get_touch_point_state 7 mintime 0 
+if and
+  5@ == 1 
+  6@ == 1 
+jf @Noname_58 
+Player.CanMove($PLAYER_CHAR, True)
+02CE: 3@ = ground_z_at 1@ 2@ 3@ 
+Car.PutAt(0@, 1@, 2@, 3@)
+Car.Angle(0@) = 4@
+Car.LockInCurrentPosition(0@, False)
+
+:Noname_601
+terminate_this_custom_script 
